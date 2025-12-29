@@ -1,6 +1,6 @@
 {
   "name": "create-ccb",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CLI to install Claude Code Bootstrap configuration",
   "type": "module",
   "bin": {
