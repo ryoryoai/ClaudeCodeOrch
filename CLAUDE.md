@@ -1,13 +1,15 @@
 # E2E Delivery + Long-Run Harness Rules
 
-このリポジトリでは、要件定義（spec/REQ.md）から **実装→レビュー→テストGreen** までを一気通貫で進める。
+このリポジトリでは、要件定義（spec/*.md）から **実装→レビュー→テストGreen** までを一気通貫で進める。
 また、複数日・複数セッションでも進捗と判断が崩れないように **Harness**（harness/ 配下）を常に更新する。
 
 ---
 
 ## Inputs
 
-- spec/REQ.md（案件の要件定義）
+- spec/*.md（案件の要件定義ファイル群）
+  - フォルダ内の全 .md ファイルを自動検出
+  - 優先度判断: front matter `priority` > ファイル名プレフィックス(01-) > アルファベット順
 
 ## Sources of truth
 
@@ -45,7 +47,7 @@
 
 ## Definition of Done（DoD）
 
-- `spec/REQ.md` の Acceptance Criteria を満たす
+- `spec/*.md` の全ての Acceptance Criteria を満たす
 - フルテストが Green（Stop hook により強制される想定）
 - docs が更新されている:
   - docs/IMPLEMENTATION_PLAN.md

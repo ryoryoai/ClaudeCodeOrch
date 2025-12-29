@@ -1,71 +1,28 @@
 {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "permissions": {
+    "allow": [
+      "Bash(python -m pytest:*)",
+      "Bash(make:*)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)"
+    ],
+    "deny": []
+  },
   "hooks": {
-    "PreToolUse": [
+    "pre_tool_use": [
       {
-        "matcher": "Bash|Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/pre_tool_use.sh",
-            "timeout": 10
-          }
-        ]
+        "matcher": "Bash",
+        "command": "python hooks/pre_tool_use.py"
       }
     ],
-    "Stop": [
+    "post_tool_use": [
       {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$CLAUDE_PROJECT_DIR/.claude/skills/quality-gates/scripts/stop_gate.sh",
-            "timeout": 900
-          }
-        ]
+        "matcher": "Bash",
+        "command": "python hooks/post_tool_use.py"
       }
     ]
   },
-  "mcpServers": {
-    "memory": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-memory"],
-      "description": "Knowledge graph-based persistent memory across sessions"
-    },
-    "git": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-git", "--repository", "${CLAUDE_PROJECT_DIR}"],
-      "description": "Git repository operations (read, search, diff, log)"
-    },
-    "fetch": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-fetch"],
-      "description": "Web content fetching and conversion"
-    },
-    "sequential-thinking": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
-      "description": "Problem solving through thought sequences"
-    },
-    "filesystem": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem", "${CLAUDE_PROJECT_DIR}"],
-      "description": "Extended filesystem operations with access control"
-    },
-    "playwright": {
-      "command": "npx",
-      "args": ["@playwright/mcp@latest"],
-      "description": "Browser automation for E2E testing and web scraping"
-    },
-    "github": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
-      },
-      "description": "GitHub API integration for issues, PRs, and repos"
-    }
-  },
-  "permissions": {
-    "allow": ["Read", "Glob", "Grep", "Task", "WebSearch", "WebFetch"],
-    "deny": []
-  }
+  "env": {}
 }

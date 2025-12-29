@@ -25,10 +25,14 @@ description: Maintain the long-run harness files (harness/*). Use at session sta
 - Keep features small and structured.
 - Each feature should include at least:
   - id, title, status (todo|doing|done|blocked)
+  - **spec_file**: path to source spec file (e.g., "spec/01-auth.md")
+  - **priority**: numeric priority from spec file
   - acceptance_criteria (array of strings)
   - tasks (array of strings)
   - tests (array of strings)
+  - **depends_on**: array of feature IDs (optional)
 - Update when scope changes, tasks are completed, or new work is discovered.
+- When a new spec file is added, create a corresponding feature entry.
 
 ### WORKLOG.md
 
